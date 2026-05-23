@@ -4,14 +4,14 @@ hosts:
   - name: wavm
     flavor: c4_r8_d80
     base_box:
-      image: windows-11-x86_64
+      image: windows-10-x86_64
       mgmt_user: windows
       mgmt_protocol: winrm
     hidden: false
   - name: wvvm
     flavor: c4_r8_d80
     base_box:
-      image: windows-server-2025-x86_64
+      image: windows-server-2019-x86_64
       mgmt_user: windows
       mgmt_protocol: winrm
     hidden: false
