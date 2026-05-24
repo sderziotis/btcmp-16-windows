@@ -34,7 +34,7 @@ net_mappings:
     network: network-2
     ip: 192.168.10.20
 router_mappings:
-  - router: router-1
+  - router: router
     network: network-2
     ip: 192.168.10.1
 groups: []
