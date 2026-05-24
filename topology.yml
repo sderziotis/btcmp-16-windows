@@ -6,35 +6,22 @@ hosts:
     base_box:
       image: windows-10-x86_64
       mgmt_user: windows
-    user_data: |
-      #ps1_sysnative
-      winrm quickconfig -q
-      winrm set winrm/config/service '@{AllowUnencrypted="true"}'
-      winrm set winrm/config/service/auth '@{Basic="true"}'
-      winrm set winrm/config/listener?Address=*+Transport=HTTPS '@{Port="5986"}'
-      netsh advfirewall firewall add rule name="WinRM-HTTPS" protocol=TCP dir=in localport=5986 action=allow
+      mgmt_protocol: winrm    # ← ADD THIS
     hidden: false
-
   - name: wvvm
     flavor: c4_r8_d60
     base_box:
       image: windows-server-2019-x86_64
       mgmt_user: windows
-    user_data: |
-      #ps1_sysnative
-      winrm quickconfig -q
-      winrm set winrm/config/service '@{AllowUnencrypted="true"}'
-      winrm set winrm/config/service/auth '@{Basic="true"}'
-      winrm set winrm/config/listener?Address=*+Transport=HTTPS '@{Port="5986"}'
-      netsh advfirewall firewall add rule name="WinRM-HTTPS" protocol=TCP dir=in localport=5986 action=allow
+      mgmt_protocol: winrm    # ← ADD THIS
     hidden: false
-
 routers:
   - name: router
     flavor: standard.small
     base_box:
       image: debian-12-x86_64
       mgmt_user: debian
+      mgmt_protocol: ssh
     hidden: false
 networks:
   - name: network-2
@@ -55,6 +42,6 @@ router_mappings:
     ip: 192.168.10.1
 groups:
   - name: windows_hosts
-    hosts:
+    nodes:          # ← CHANGE hosts: to nodes:
       - wavm
       - wvvm
