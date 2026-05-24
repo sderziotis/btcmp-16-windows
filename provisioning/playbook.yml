@@ -85,7 +85,7 @@
   tasks:
     - name: No additional software provisioned for wvvm
       ansible.builtin.debug:
-        msg: "wvvm is a bare Windows Server 2025 machine — no extra software installed."
+        msg: "wvvm is a bare Windows Server 2019 machine — no extra software installed."
 
   # ─── Role ─────────────────────────────────────────────────────
   roles:
