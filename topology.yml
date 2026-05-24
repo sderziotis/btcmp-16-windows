@@ -16,18 +16,15 @@ hosts:
       mgmt_protocol: winrm
     hidden: false
 routers:
-  - name: router-1
+  - name: router
     flavor: standard.small
     base_box:
-      image: ubuntu-noble-x86_64
-      mgmt_user: ubuntu
-      mgmt_protocol: ssh
+      image: debian-12-x86_64
+      mgmt_user: debian
     hidden: false
 networks:
   - name: network-2
     cidr: 192.168.10.0/24
-    accessible_by_user: true
-    hidden: false
 wan:
   name: network-1
   cidr: 10.10.10.0/24

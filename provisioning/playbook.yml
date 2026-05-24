@@ -1,10 +1,10 @@
 # ─────────────────────────────────────────────
-#  MACHINE 1 - wavm (Windows 11 - Analyst Workstation)
+#  MACHINE 1 - wavm (Windows 10 - Analyst Workstation)
 # ─────────────────────────────────────────────
 - name: init machine wavm
   hosts:
     - wavm
-  become: false
+  gather_facts: yes
 
   tasks:
     # ─── Chocolatey bootstrap ────────────────────────────────────
@@ -67,19 +67,20 @@
 
   # ─── Role ─────────────────────────────────────────────────────
   roles:
-    - role: user-access
+    - name: ansible-role-user-access-windows
       user_access_username: user
-      user_access_password: 'Password123'
-      user_access_sudo: true
-
+      user_access_password: Password123
+      user_access_rdp: True
+      user_access_admin: True
+      
 
 # ─────────────────────────────────────────────
-#  MACHINE 2 - wvvm (Windows Server 2025 - Victim/Evidence Machine)
+#  MACHINE 2 - wvvm (Windows Server 2019 - Victim/Evidence Machine)
 # ─────────────────────────────────────────────
 - name: init machine wvvm
   hosts:
     - wvvm
-  become: false
+  gather_facts: yes
 
   tasks:
     - name: No additional software provisioned for wvvm
@@ -88,7 +89,8 @@
 
   # ─── Role ─────────────────────────────────────────────────────
   roles:
-    - role: user-access
+    - name: ansible-role-user-access-windows
       user_access_username: user
-      user_access_password: 'btcmp16@admin'
-      user_access_sudo: true
+      user_access_password: Password123
+      user_access_rdp: True
+      user_access_admin: True
