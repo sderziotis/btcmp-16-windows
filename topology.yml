@@ -1,19 +1,18 @@
-# Main topology
-name: btcmp-16
+name: btcmp16
 hosts:
-  - name: wavm
-    flavor: c4_r8_d60
+  - name: srv01
+    flavor: c2_r4_d40
     base_box:
       image: windows-server-2019-x86_64
       mgmt_user: windows
-      mgmt_protocol: winrm    # ← ADD THIS
+      mgmt_protocol: winrm
     hidden: false
-  - name: wvvm
-    flavor: c4_r8_d60
+  - name: srv02
+    flavor: c2_r4_d40
     base_box:
       image: windows-server-2019-x86_64
       mgmt_user: windows
-      mgmt_protocol: winrm    # ← ADD THIS
+      mgmt_protocol: winrm
     hidden: false
 routers:
   - name: router
@@ -24,24 +23,26 @@ routers:
       mgmt_protocol: ssh
     hidden: false
 networks:
-  - name: network-2
-    cidr: 192.168.10.0/24
+  - name: access-switch
+    cidr: 10.10.10.0/24
+    accessible_by_user: true
+    hidden: false
 wan:
-  name: network-1
-  cidr: 10.10.10.0/24
+  name: wan
+  cidr: 10.10.100.0/24
 net_mappings:
-  - host: wavm
-    network: network-2
-    ip: 192.168.10.10
-  - host: wvvm
-    network: network-2
-    ip: 192.168.10.20
+  - host: srv01
+    network: access-switch
+    ip: 10.10.10.3
+  - host: srv02
+    network: access-switch
+    ip: 10.10.10.4
 router_mappings:
   - router: router
-    network: network-2
-    ip: 192.168.10.1
+    network: access-switch
+    ip: 10.10.10.1
 groups:
-  - name: windows_hosts
-    nodes:          # ← CHANGE hosts: to nodes:
-      - wavm
-      - wvvm
+  - name: windows-server
+    nodes:
+      - srv01
+      - srv02
