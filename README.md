@@ -2,7 +2,7 @@
 
 ## Overview
 
-This lab environment is built around a **Digital Forensics** scenario. It uses **windows-11-x86_64** for the analyst workstation and **windows-server-2025-x86_64** for the victim/evidence machine. Both machines share the same internal network, routed through `router-1`.
+This lab environment is built around a **Digital Forensics** scenario. It uses **windows-10-x86_64** for the analyst workstation and **windows-server-2019-x86_64** for the victim/evidence machine. Both machines share the same internal network, routed through `router-1`.
 
 ---
 
@@ -17,7 +17,7 @@ This lab environment is built around a **Digital Forensics** scenario. It uses *
 
 ## Machines
 
-### WAVM — Analyst Workstation (Windows 11)
+### WAVM — Analyst Workstation (Windows 10)
 User `user` / `Password123` (admin enabled).
 
 **Software:**
@@ -35,10 +35,10 @@ User `user` / `Password123` (admin enabled).
 
 ---
 
-### WVVM — Victim / Evidence Machine (Windows Server 2025)
-User `user` / `btcmp16@admin` (admin enabled).
+### WVVM — Victim / Evidence Machine (Windows Server 2019)
+User `user` / `Password123` (admin enabled).
 
-**Software:** None — bare Windows Server 2025 installation.
+**Software:** None — bare Windows Server 2019 installation.
 
 ---
 
