@@ -1,36 +1,48 @@
-name: windows-10-testing
-
+name: btcmp16
 hosts:
-  - name: win10-desktop
+  - name: srv01
+    flavor: c2_r4_d40
     base_box:
-      image: windows-10-x86_64
+      image: windows-server-2019-x86_64
       mgmt_user: windows
-    flavor: c4_r8_d60
-
+      mgmt_protocol: ssh
+    hidden: false
+  - name: srv02
+    flavor: c2_r4_d40
+    base_box:
+      image: windows-server-2019-x86_64
+      mgmt_user: windows
+      mgmt_protocol: ssh
+    hidden: false
 routers:
   - name: router
+    flavor: standard.small
     base_box:
       image: debian-12-x86_64
       mgmt_user: debian
-    flavor: standard.small
-
+      mgmt_protocol: ssh
+    hidden: false
 networks:
-  - name: network
-    cidr: 10.0.0.0/24
-
+  - name: access-switch
+    cidr: 10.10.10.0/24
+    accessible_by_user: true
+    hidden: false
 wan:
-  name: internet-connection
-  cidr: 100.100.100.0/24
-
+  name: wan
+  cidr: 10.10.100.0/24
 net_mappings:
-    - host: win10-desktop
-      network: network
-      ip: 10.0.0.10
-
+  - host: srv01
+    network: access-switch
+    ip: 10.10.10.3
+  - host: srv02
+    network: access-switch
+    ip: 10.10.10.4
 router_mappings:
-    - router: router
-      network: network
-      ip: 10.0.0.1
-
-groups: []
-
+  - router: router
+    network: access-switch
+    ip: 10.10.10.1
+groups:
+  - name: windows-server
+    nodes:
+      - srv01
+      - srv02
