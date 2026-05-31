@@ -5,7 +5,6 @@
   hosts:
     - wavm
   gather_facts: yes
-  become: true
   vars:
     ansible_connection: psrp
     ansible_psrp_protocol: https
@@ -34,7 +33,6 @@
   hosts:
     - wvvm
   gather_facts: yes
-  become: true
   vars:
     ansible_connection: psrp
     ansible_psrp_protocol: https
