@@ -27,21 +27,21 @@ routers:
     hidden: false
 networks:
   - name: access-switch
-    cidr: 10.10.10.0/24
+    cidr: 192.168.10.0/24
     accessible_by_user: true
     hidden: false
 wan:
   name: wan
-  cidr: 10.10.100.0/24
+  cidr: 10.10.10.0/24
 net_mappings:
   - host: wavm
     network: access-switch
-    ip: 10.10.10.3
+    ip: 192.168.10.2
   - host: wvvm
     network: access-switch
-    ip: 10.10.10.4
+    ip: 192.168.10.3
 router_mappings:
   - router: router
     network: access-switch
-    ip: 10.10.10.1
+    ip: 192.168.10.1
 groups: []
