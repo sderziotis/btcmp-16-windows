@@ -1,59 +1,13 @@
-# ─────────────────────────────────────────────
-#  MACHINE 1 - wavm (Windows 10 - Analyst Workstation)
-# ─────────────────────────────────────────────
-- name: init machine wavm
-  hosts:
-    - wavm
+- name: Hello world
+  hosts: wavm
   gather_facts: yes
-  vars:
-    ansible_connection: psrp
-    ansible_psrp_protocol: https
-    ansible_psrp_cert_validation: ignore
-    ansible_port: 5986
-  pre_tasks:
-    - name: Wait for PSRP listener to accept connections
-      ansible.builtin.wait_for_connection:
-        delay: 0
-        sleep: 10
-        timeout: 900
-
-  # ─── Role ─────────────────────────────────────────────────────
   roles:
     - name: ansible-role-user-access-windows
       user_access_username: user
       user_access_password: Password123
       user_access_rdp: True
-      user_access_admin: True
-      
-
-# ─────────────────────────────────────────────
-#  MACHINE 2 - wvvm (Windows Server 2019 - Victim/Evidence Machine)
-# ─────────────────────────────────────────────
-- name: init machine wvvm
-  hosts:
-    - wvvm
-  gather_facts: yes
-  vars:
-    ansible_connection: psrp
-    ansible_psrp_protocol: https
-    ansible_psrp_cert_validation: ignore
-    ansible_port: 5986
-  pre_tasks:
-    - name: Wait for PSRP listener to accept connections
-      ansible.builtin.wait_for_connection:
-        delay: 0
-        sleep: 10
-        timeout: 900
-
+      user_access_admin: True    
   tasks:
-    - name: No additional software provisioned for wvvm
-      ansible.builtin.debug:
-        msg: "wvvm is a bare Windows Server 2019 machine — no extra software installed."
-
-  # ─── Role ─────────────────────────────────────────────────────
-  roles:
-    - name: ansible-role-user-access-windows
-      user_access_username: user
-      user_access_password: Password123
-      user_access_rdp: True
-      user_access_admin: True
+    - name: Print hello world
+      debug:
+        msg: "Hello World"
