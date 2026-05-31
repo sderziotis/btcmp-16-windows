@@ -7,6 +7,27 @@
         delay: 0
         sleep: 10
         timeout: 900
+  tasks:
+    # ─── Chocolatey bootstrap ────────────────────────────────────
+    - name: Install Chocolatey
+      ansible.windows.win_shell: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force;
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
+        iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+      args:
+        creates: C:\ProgramData\chocolatey\bin\choco.exe
+
+    # ─── Git, FTK Imager, Autopsy, Strawberry Perl via Chocolatey ──
+    # Chocolatey packages are version-agnostic and self-updating —
+    # no hardcoded URLs that can go stale.
+    - name: Install Git, FTK Imager, Autopsy, and Strawberry Perl via Chocolatey
+      chocolatey.chocolatey.win_chocolatey:
+        name:
+          - git
+          - ftk-imager
+          - autopsy
+          - strawberryperl
+        state: present
   roles:
     - role: ansible-role-user-access-windows
       user_access_username: LocalAdmin
