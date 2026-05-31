@@ -1,10 +1,6 @@
-- name: Configure srv01
-  hosts: srv01
+- name: Configure wavm
+  hosts: wavm
   gather_facts: false
-  vars:
-    ad_domain_name: globalfinancial.local
-    ad_admin_password: ChangeMe!
-    ad_dc_ip: 10.10.10.3
   pre_tasks:
     - name: Wait for PSRP listener to accept connections
       ansible.builtin.wait_for_connection:
@@ -18,8 +14,8 @@
       user_access_rdp: True
       user_access_admin: True
 
-- name: Configure srv02
-  hosts: srv02
+- name: Configure wvvm
+  hosts: wvvm
   gather_facts: false
   pre_tasks:
     - name: Wait for PSRP listener to accept connections

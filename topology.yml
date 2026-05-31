@@ -1,19 +1,22 @@
-name: btcmp16-test2
+name: btcmp16-windows-srv
 hosts:
-  - name: srv01
+  - name: wavm
     flavor: c4_r8_d60
     base_box:
       image: windows-server-2019-x86_64
       mgmt_user: windows
       mgmt_protocol: winrm
     hidden: false
-  - name: srv02
+  - name: wvvm
     flavor: c4_r8_d60
     base_box:
       image: windows-server-2019-x86_64
       mgmt_user: windows
       mgmt_protocol: winrm
     hidden: false
+    volumes:
+    - size: 60
+    - size: 5
 routers:
   - name: router
     flavor: standard.small
@@ -31,10 +34,10 @@ wan:
   name: wan
   cidr: 10.10.100.0/24
 net_mappings:
-  - host: srv01
+  - host: wavm
     network: access-switch
     ip: 10.10.10.3
-  - host: srv02
+  - host: wvvm
     network: access-switch
     ip: 10.10.10.4
 router_mappings:
