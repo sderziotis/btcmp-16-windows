@@ -1,4 +1,4 @@
-name: btcmp16-windows
+name: btcmp16-windows-server
 hosts:
   - name: wavm
     flavor: c4_r8_d60
