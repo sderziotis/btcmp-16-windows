@@ -7,7 +7,7 @@ hosts:
       mgmt_user: windows
       mgmt_protocol: winrm
     hidden: false
-  - name: srv02
+  - name: wvvm
     flavor: c2_r4_d40
     base_box:
       image: windows-server-2019-x86_64
@@ -31,10 +31,10 @@ wan:
   name: wan
   cidr: 10.10.100.0/24
 net_mappings:
-  - host: srv01
+  - host: wavm
     network: access-switch
     ip: 10.10.10.3
-  - host: srv02
+  - host: wvvm
     network: access-switch
     ip: 10.10.10.4
 router_mappings:
