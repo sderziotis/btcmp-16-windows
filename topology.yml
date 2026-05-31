@@ -1,18 +1,18 @@
-name: btcmp16
+name: btcmp16-windows
 hosts:
-  - name: srv01
+  - name: wavm
     flavor: c2_r4_d40
     base_box:
-      image: windows-server-2019-x86_64
+      image: windows-10-x86_64
       mgmt_user: windows
-      mgmt_protocol: ssh
+      mgmt_protocol: winrm
     hidden: false
   - name: srv02
     flavor: c2_r4_d40
     base_box:
       image: windows-server-2019-x86_64
       mgmt_user: windows
-      mgmt_protocol: ssh
+      mgmt_protocol: winrm
     hidden: false
 routers:
   - name: router
@@ -41,8 +41,4 @@ router_mappings:
   - router: router
     network: access-switch
     ip: 10.10.10.1
-groups:
-  - name: windows-server
-    nodes:
-      - srv01
-      - srv02
+groups: []
