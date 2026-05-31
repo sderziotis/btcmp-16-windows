@@ -5,6 +5,17 @@
   hosts:
     - wavm
   gather_facts: yes
+    vars:
+    ansible_connection: psrp
+    ansible_psrp_protocol: https
+    ansible_psrp_cert_validation: ignore
+    ansible_port: 5986
+pre_tasks:
+    - name: Wait for PSRP listener to accept connections
+      ansible.builtin.wait_for_connection:
+        delay: 0
+        sleep: 10
+        timeout: 900
 
   tasks:
     # ─── Chocolatey bootstrap ────────────────────────────────────
