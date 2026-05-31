@@ -1,13 +1,35 @@
-- name: Hello world
-  hosts: wavm
-  gather_facts: yes
+- name: Configure srv01
+  hosts: srv01
+  gather_facts: false
+  vars:
+    ad_domain_name: globalfinancial.local
+    ad_admin_password: ChangeMe!
+    ad_dc_ip: 10.10.10.3
+  pre_tasks:
+    - name: Wait for PSRP listener to accept connections
+      ansible.builtin.wait_for_connection:
+        delay: 0
+        sleep: 10
+        timeout: 900
   roles:
-    - name: ansible-role-user-access-windows
-      user_access_username: user
-      user_access_password: Password123
+    - role: ansible-role-user-access-windows
+      user_access_username: LocalAdmin
+      user_access_password: Password123!
       user_access_rdp: True
-      user_access_admin: True    
-  tasks:
-    - name: Print hello world
-      debug:
-        msg: "Hello World"
+      user_access_admin: True
+
+- name: Configure srv02
+  hosts: srv02
+  gather_facts: false
+  pre_tasks:
+    - name: Wait for PSRP listener to accept connections
+      ansible.builtin.wait_for_connection:
+        delay: 0
+        sleep: 10
+        timeout: 900
+  roles:
+    - role: ansible-role-user-access-windows
+      user_access_username: LocalAdmin
+      user_access_password: Password123!
+      user_access_rdp: True
+      user_access_admin: True

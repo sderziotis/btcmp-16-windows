@@ -1,22 +1,19 @@
-name: btcmp16-windows-server-demo
+name: cr08
 hosts:
-  - name: wavm
+  - name: srv01
     flavor: c4_r8_d60
     base_box:
       image: windows-server-2019-x86_64
       mgmt_user: windows
       mgmt_protocol: winrm
     hidden: false
-  - name: wvvm
+  - name: srv02
     flavor: c4_r8_d60
     base_box:
       image: windows-server-2019-x86_64
       mgmt_user: windows
       mgmt_protocol: winrm
     hidden: false
-    volumes:
-      - size: 60
-      - size: 5
 routers:
   - name: router
     flavor: standard.small
@@ -26,22 +23,22 @@ routers:
       mgmt_protocol: ssh
     hidden: false
 networks:
-  - name: network-1
-    cidr: 192.168.10.0/24
+  - name: access-switch
+    cidr: 10.10.10.0/24
     accessible_by_user: true
     hidden: false
 wan:
   name: wan
-  cidr: 10.10.10.0/24
+  cidr: 10.10.100.0/24
 net_mappings:
-  - host: wavm
-    network: network-1
-    ip: 192.168.10.2
-  - host: wvvm
-    network: network-1
-    ip: 192.168.10.3
+  - host: srv01
+    network: access-switch
+    ip: 10.10.10.3
+  - host: srv02
+    network: access-switch
+    ip: 10.10.10.4
 router_mappings:
   - router: router
-    network: network-1
-    ip: 192.168.10.1
+    network: access-switch
+    ip: 10.10.10.1
 groups: []
