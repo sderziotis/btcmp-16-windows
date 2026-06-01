@@ -22,6 +22,45 @@
           - strawberryperl
         state: present
 
+    - name: Download CodeMeter runtime
+      ansible.windows.win_get_url:
+        url: https://github.com/sderziotis/btcmp-16-windows/releases/download/v1.3/CodeMeterRuntime.zip
+        dest: C:\Windows\Temp\CodeMeterRuntime.zip
+
+    - name: Extract CodeMeter runtime
+      community.windows.win_unzip:
+        src: C:\Windows\Temp\CodeMeterRuntime.zip
+        dest: C:\Windows\Temp\CodeMeter
+
+    - name: Install CodeMeter runtime silently
+      ansible.windows.win_shell: |
+        Start-Process -FilePath "C:\Windows\Temp\CodeMeter\CodeMeterRuntime.exe" -ArgumentList "/quiet" -Wait
+      args:
+        creates: C:\Program Files\CodeMeter\Runtime\bin\CodeMeter.exe
+
+    - name: Download FTK Imager
+      ansible.windows.win_get_url:
+        url: https://github.com/sderziotis/btcmp-16-windows/releases/download/v1.3/FTK.Imager.zip
+        dest: C:\Windows\Temp\FTKImager.zip
+
+    - name: Ensure FTK Imager destination exists
+      ansible.windows.win_file:
+        path: C:\Tools\FTKImager
+        state: directory
+
+    - name: Extract FTK Imager
+      community.windows.win_unzip:
+        src: C:\Windows\Temp\FTKImager.zip
+        dest: C:\Tools\FTKImager
+
+    - name: Remove temp files
+      ansible.windows.win_file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - C:\Windows\Temp\CodeMeterRuntime.zip
+        - C:\Windows\Temp\CodeMeter
+        - C:\Windows\Temp\FTKImager.zip
 
 - name: Configure wvvm
   hosts: wvvm
