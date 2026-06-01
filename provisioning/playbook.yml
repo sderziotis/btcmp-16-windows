@@ -71,6 +71,17 @@
         url: https://github.com/sderziotis/btcmp-16-windows/releases/download/v1.3/ntfs-img-kw-1.dd
         dest: C:\Windows\Temp\ntfs-img-kw-1.dd
 
+    - name: Clear read-only attribute on PhysicalDrive1 before writing
+      ansible.windows.win_shell: |
+        $script = @"
+        select disk 1
+        attributes disk clear readonly
+        "@
+        $script | diskpart
+      become: yes
+      become_method: runas
+      become_user: SYSTEM
+
     - name: Write DD image to second physical disk (PhysicalDrive1)
       ansible.windows.win_shell: |
         $ddSrc = "C:\Windows\Temp\ntfs-img-kw-1.dd"
