@@ -18,10 +18,29 @@
       chocolatey.chocolatey.win_chocolatey:
         name:
           - git
-          - ftkimager
           - autopsy
           - strawberryperl
         state: present
+
+    - name: Download FTK Imager
+      ansible.windows.win_get_url:
+        url: https://d1kpmuwb7gvu1i.cloudfront.net/FTK_Imager_4.7.1.2.zip
+        dest: C:\Windows\Temp\FTKImager.zip
+
+    - name: Ensure FTK Imager destination exists
+      ansible.windows.win_file:
+        path: C:\Tools\FTKImager
+        state: directory
+
+    - name: Extract FTK Imager
+      community.windows.win_unzip:
+        src: C:\Windows\Temp\FTKImager.zip
+        dest: C:\Tools\FTKImager
+
+    - name: Remove FTK Imager ZIP
+      ansible.windows.win_file:
+        path: C:\Windows\Temp\FTKImager.zip
+        state: absent
 
 - name: Configure wvvm
   hosts: wvvm
