@@ -18,7 +18,7 @@
       chocolatey.chocolatey.win_chocolatey:
         name:
           - git
-          - ftk-imager
+          - ftkimager
           - autopsy
           - strawberryperl
         state: present
