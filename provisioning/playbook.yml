@@ -32,9 +32,9 @@
         src: C:\Windows\Temp\CodeMeterRuntime.zip
         dest: C:\Windows\Temp\CodeMeter
 
-    - name: Install CodeMeter runtime silently bypass UAC
+    - name: Install CodeMeter runtime silently
       ansible.windows.win_shell: |
-        & "C:\Windows\Temp\CodeMeter\CodeMeterRuntime.exe" /S
+        & "C:\Windows\Temp\CodeMeter\CodeMeterRuntime.exe" /ComponentArgs "*":"/qn"
       become: yes
       become_method: runas
       become_user: SYSTEM
