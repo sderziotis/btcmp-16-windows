@@ -34,12 +34,22 @@
 
     - name: Install CodeMeter runtime silently
       ansible.windows.win_shell: |
-        & "C:\Windows\Temp\CodeMeter\CodeMeterRuntime.exe" /ComponentArgs "*":"/qn"
+        $p = Start-Process -FilePath "C:\Windows\Temp\CodeMeter\CodeMeterRuntime.exe" `
+          -ArgumentList "/q /Log /LogFile C:\Windows\Temp\codemeter_install.log" `
+          -PassThru
+        if (-not $p.WaitForExit(300000)) {
+          $p.Kill()
+          Write-Output "TIMED OUT"
+        }
+        Get-Content C:\Windows\Temp\codemeter_install.log -ErrorAction SilentlyContinue
       become: yes
       become_method: runas
       become_user: SYSTEM
-      args:
-        creates: C:\Program Files\CodeMeter\Runtime\bin\CodeMeter.exe
+      register: codemeter_result
+
+    - name: Print CodeMeter install output
+      ansible.builtin.debug:
+        msg: "{{ codemeter_result.stdout_lines }}"
 
     - name: Download FTK Imager
       ansible.windows.win_get_url:
