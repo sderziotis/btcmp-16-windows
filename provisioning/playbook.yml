@@ -7,6 +7,12 @@
         delay: 0
         sleep: 10
         timeout: 900
+  roles:
+    - role: ansible-role-user-access-windows
+      user_access_username: LocalAdmin
+      user_access_password: Password123!
+      user_access_rdp: True
+      user_access_admin: True
   tasks:
     # ─── Chocolatey bootstrap ────────────────────────────────────
     - name: Install Chocolatey
@@ -28,12 +34,6 @@
           - autopsy
           - strawberryperl
         state: present
-  roles:
-    - role: ansible-role-user-access-windows
-      user_access_username: LocalAdmin
-      user_access_password: Password123!
-      user_access_rdp: True
-      user_access_admin: True
 
 - name: Configure wvvm
   hosts: wvvm
