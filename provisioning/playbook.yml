@@ -34,7 +34,7 @@
 
     - name: Install CodeMeter runtime silently
       ansible.windows.win_shell: |
-        Start-Process -FilePath "C:\Windows\Temp\CodeMeter\CodeMeterRuntime.exe" -ArgumentList "/quiet" -Wait
+        Start-Process -FilePath "C:\Windows\Temp\CodeMeter\CodeMeterRuntime.exe" -ArgumentList "/S" -Wait
       args:
         creates: C:\Program Files\CodeMeter\Runtime\bin\CodeMeter.exe
 
