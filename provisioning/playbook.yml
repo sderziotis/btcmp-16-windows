@@ -100,9 +100,14 @@
       become_method: runas
       become_user: SYSTEM
 
-    - name: Set PhysicalDrive1 read-only via diskpart
+    - name: Rescan, online disk, assign drive letter E, and set read-only via diskpart
       ansible.windows.win_shell: |
         $script = @"
+        rescan
+        select disk 1
+        online disk
+        select partition 1
+        assign letter=E
         select disk 1
         attributes disk set readonly
         "@
@@ -110,7 +115,6 @@
       become: yes
       become_method: runas
       become_user: SYSTEM
-
 
     - name: Remove temp files
       ansible.windows.win_file:
