@@ -68,8 +68,8 @@
 
     - name: Create FTK Imager desktop shortcut
       ansible.windows.win_shortcut:
-        src: C:\Tools\FTKImager\FTK Imager\FTK Imager.exe
-        dest: C:\Users\LocalAdmin\Desktop\FTK Imager.lnk
+        src: 'C:\Tools\FTKImager\FTK Imager\FTK Imager.exe'
+        dest: 'C:\Users\LocalAdmin\Desktop\FTK Imager.lnk'
 
     - name: Download NTFS forensic disk image
       ansible.windows.win_get_url:
